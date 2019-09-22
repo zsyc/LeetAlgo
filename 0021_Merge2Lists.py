@@ -1,6 +1,6 @@
-// 借鉴网友的答案，思路就是用一个新的list，每次比较一个，然后连接小的node
+# 借鉴网友的答案，思路就是用一个新的list，每次比较一个，然后连接小的node
 
-// 注意在c + +实现中，返回函数内部生成的指针可能因函数的销毁才失效。
+# 注意在c + +实现中，返回函数内部生成的指针可能因函数的销毁才失效。
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, x):
