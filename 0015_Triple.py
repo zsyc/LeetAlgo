@@ -23,7 +23,7 @@ class Solution:
         for i in range(len(nums) - 2):
             if nums[i] > 0:     # 若第一个数字为正数，因为已经排序过，所以不可能实现和为0的目标
                 break                
-            if i > 0 and nums[i] == nums[i - 1]:
+            if i > 0 and nums[i] == nums[i - 1]:去重
                 continue
             target = 0 - nums[i]
             j = i + 1
