@@ -1,3 +1,6 @@
+"""Runtime: 1320 ms, faster than 7.74% of Python3 online submissions for Sqrt(x).
+Memory Usage: 12.7 MB, less than 100.00% of Python3 online submissions for Sqrt(x)."""
+
 class Solution:
     def ten(self, n: int) -> int:   # 求10的n次方函数，可以用pow函数代替
         srt = 1
@@ -40,6 +43,3 @@ class Solution:
             for i in range(int(3.1 * basis), basis * 10):
                 if i * i <= x and (i + 1) * (i + 1) > x:
                     return i
-
-"""没想到思考了那么久，竟然得到的是只快于7%的python答案！
-明晚再考虑优化……“”“
