@@ -21,7 +21,7 @@ void merge(int start, int mid, int end){
 	while (i<n1) // left[] is not exhausted
 		a[k++] = left[i++];
 	while (j<n2) // right[] is not exhausted
-		a[k++] = right[j++]{;
+		a[k++] = right[j++];
 }
 void sort(int start, int end){
 	int mid;
