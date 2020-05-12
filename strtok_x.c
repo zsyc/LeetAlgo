@@ -6,23 +6,21 @@ char *strtok_x(char *s, const char *delim){
 	if (s!=NULL){
 		while (*s == *delim || *s==' ') ++s;
 		next = s;
-		ch = next;
 	}
-	else{
-		ch = next;
+	else
 		s = next;
-	}
 	
-	while (*ch != '\0'){
-		if (*ch == *delim) {
+	while (*(ch=next) != '\0'){
+		if (*ch == *delim){
 			*ch = '\0';
-			next = ++ch;
-			if (*next == *delim) continue;
+			++ch;
+			while(*ch == *delim || *ch == ' ')
+				++ch;
+			next = ch;
 			return s;
 		}
-		++ch;
+		++next;
 	}
-	if (*s != *delim && *s != ' ') printf ("--->%s\n", s);
 	return NULL;
 }
-//当前问题：对空格处理不正确，对末尾冒号处理不正确
+//TODO 多个分隔符

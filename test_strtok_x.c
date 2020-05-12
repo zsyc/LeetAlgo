@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include "strtok_x.h"
 
-int main(int argc, char* argv[]){
-//	char strx[] = ":::acc:::kkevn::::d::::";
+int main(int argc, char *argv[]){
+//	char strx[] = ":::acc::  ::kkevn:: ::d::::  d";
 	char *ch = NULL;
 	ch = strtok_x(argv[1], argv[2]);
 	printf ("-->%s\n",ch);
