@@ -8,7 +8,6 @@ int main(int argc, char *argv[]){
 	printf ("-->%s\n",ch);
 	while ((ch = strtok_x(NULL,argv[2]))!=NULL)
 		printf ("-->%s\n", ch); 
-		
 
 	return 0;
 }
