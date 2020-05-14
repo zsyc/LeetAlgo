@@ -22,9 +22,9 @@ char *strtok_x(char *s, const char *delim){
 		}
 		++next;
 	}
+	if (*s != '\0') return s;
 	return NULL;
 }
-//TODO 多个分隔符,加版本号,末尾字符串搜寻
 
 static int in(char ch, const char *delim){
 	while (*delim != '\0'){
