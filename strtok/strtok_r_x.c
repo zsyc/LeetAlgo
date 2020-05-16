@@ -1,4 +1,6 @@
-//strtok_r_x.c 与标准版strtok不同的是，_r版本可以支持二级分隔
+//strtok_r_x.c 
+//与标准版strtok不同的是，_r版本可以支持二级分隔
+
 #include <stdio.h>
 static int in(char, const char*);
 char *strtok_r_x(char *s, const char *delim, char **saveptr){
