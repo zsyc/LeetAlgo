@@ -6,6 +6,7 @@ __pycache__/
 # C extensions
 *.so
 a.out
+test.c
 
 # Distribution / packaging
 .Python
