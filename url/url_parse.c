@@ -1,14 +1,10 @@
 /* url.parse.c */
 /* url parse: http://www.163.com/s?wd=linux&ccl=2&fdf=22
  本函数目的是分析上述字符串，然后传出‘？’之后每个查询字符串，比如key=wd, value=linux就是一个 */
-
+#include "url_parse.h"	//如果不包含，会出现结构体未定义错误
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-typedef struct{
-	char *key;
-	char *value;
-}meta;
 
 void url_parse(const char *u, meta *kv){
 	char *begin = NULL, *ch;
@@ -53,7 +49,7 @@ void url_parse(const char *u, meta *kv){
 	strncpy (kv->value, begin, ch-begin);
 }
 
-void strt_free(meta *kv, int n){
+void strk_free(meta *kv, int n){
 	while (n>0){
 		free(kv->key);
 		free(kv->value);
@@ -62,34 +58,4 @@ void strt_free(meta *kv, int n){
 		++kv;
 		--n;
 	}
-}
-//TODO meta数组生成，存储以及释放; 头文件体系
-/* main.c */
-int main(void){
-	const char *str = "http://www.163.com/s?wd=linux&ccl=2&fdf=22&asdf=123&cvn=sad";
-	const char *u = str;
-	int anzahl;
-	meta *kv_group;
-
-	/* kv_group malloc */
-	while ( *u != '\0'){
-		if (*u == '=') ++anzahl;
-		++u;
-	}
-	kv_group = (meta*)malloc(sizeof(meta) * anzahl);
-	if (NULL == kv_group) {
-		printf ("out of memory");
-		exit(1);
-	}
-	
-	/***********************/
-	url_parse(str, kv_group);
-	for (int i=0;i < anzahl; ++i)
-		printf ("metadate %d:\nkey = %s\nvalue = %s\n\n",i, kv_group[i].key, kv_group[i].value);
-	
-	/* free memory */
-	strt_free(kv_group, anzahl);
-	free(kv_group);	
-	kv_group = NULL;
-	return 0;
 }
