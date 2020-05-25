@@ -4,11 +4,7 @@
 #include <stdlib.h>
 #include <errno.h>
 
-enum unit{CHAR,STRING};
-struct cp_md{
-	enum unit t;
-}
-#define copywith(cp_md,res,des) copy_method[cp_md](res,des)
+enum {CHAR,STRING};
 
 void cp_char(const char*, const char*);
 void cp_string(const char*, const char*);
@@ -42,6 +38,7 @@ void cp_char(const char *res, const char *des){
 
 /* 以字符串方式复制文件，仅用于复制文本文件，二进制文件会出错 */
 void cp_string(const char *res, const char *des){
+	const int COUNT = 43;
 	char *s = (char*)malloc(sizeof(char) * 44);
 	FILE *file1 = fopen(res, "r");
 	if (NULL == file1){
@@ -55,7 +52,7 @@ void cp_string(const char *res, const char *des){
 		printf("errno: %d\n", errno);
 		exit(1);
 	}
-	while ((s = fgets(s, 43, file1)) != NULL)
+	while ((s = fgets(s, COUNT, file1)) != NULL)
 		if (fputs(s, file2) == EOF){
 			printf("Error writing");
 			exit(1);
@@ -64,15 +61,16 @@ void cp_string(const char *res, const char *des){
 	if (fclose(file1) == EOF) printf ("Close resource file failed");
 }	
 
-//TODO 方法选择 回调？
 int main(int argc, char *argv[]){
-	if (argv[1] != "CHAR" && argv[1] != "STRING"){
-		printf("Copy with the unit of [CHAR] or [STRING]? Please input the method as first parameter.\n");
-		exit(1);
+	int md = -1;
+	printf ("Copy with unit of char(0) or string(1)?\n");
+	scanf("%d", &md);
+	switch (md){
+		case CHAR: copy_method[CHAR](argv[1], argv[2]);
+				   break;
+		case STRING: copy_method[STRING](argv[1], argv[2]);
+					 break;
 	}
-	copywith(argv[1], argv[2], argv[3]);
-//	cp_char(argv[1], argv[2]);
-//	cp_string(argv[1], argv[2]);
-	
+
 	return 0;
 }
