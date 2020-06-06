@@ -4,18 +4,14 @@
 #include <stdlib.h>
 #include "linked.h"
 
-struct node doublelist = {0, &doublelist, &doublelist};
+struct node doublelist = {0, &doublelist, &doublelist};	//界定表头，不保存数据
 static link head = &doublelist;
 
 link make_node(unsigned char item){
-	link p = (link*)malloc(sizeof(*p));
+	link p = (link)malloc(sizeof(*p));
 	p->item = item;
 	p->pre = p->next = NULL;
 	return p;
-}
-
-void free_node(link p){
-	free(p);
 }
 
 link search (unsigned char key){
@@ -26,11 +22,34 @@ link search (unsigned char key){
 	return NULL;
 }
 
-void insert (link p){	//在head后面插入, TODO head要不要移动？
+void insert (link p){	//在head后面插入
 	p->next = head->next;
-	head->next>pre = p;
+	head->next->pre = p;
 	p->pre = head;
 	head->next = p;
 }
 
+void del(link p){
+	if (p!=head){
+		p->pre->next = p->next;
+		p->next->pre = p->pre;
+		free(p);
+	}
+}
 
+void destroy(void){
+	link q, p = head->next;
+	head->next = head;
+	head->pre = head;
+	while(p != head){
+		q = p;
+		p = p->next;
+		free(q);
+	}
+}
+
+link travel(void (*visit)(link)){
+	for (link p=head->next; p!=head; p=p->next)
+		visit(p);
+	return head->next;
+}
