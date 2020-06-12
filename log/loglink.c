@@ -13,7 +13,7 @@ static link tail = &tailsentinel;
 
 link make_node(const char *str){
 	link p = (link)malloc(sizeof(*p));
-	strcpy(p->line,str);
+	strcpy(p->line,str);	//不可赋值指针，会指向同一内容！
 	p->pre = p->next = NULL; 
 	return p;
 }
