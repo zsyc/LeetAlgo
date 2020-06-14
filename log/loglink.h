@@ -12,7 +12,9 @@ struct node{
 
 link make_node(const char*);	//返回新的链结指针
 void insert(link);
-void sortlink(void);
-link travel(void(*)(link));	//返回head指针
+void swap(link*,link*);
+link getHead(void);
+link getTail(void);
+void travel(void(*)(link));	
 
 #endif

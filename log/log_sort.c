@@ -21,7 +21,7 @@ link log2link(void){
 	while(NULL != fgets(ch, 40, fp))
 		insert(make_node(ch));
 	fclose(fp);
-	return travel(show_item);
+	return getHead(); 
 }
 
 void get_time(const char *line, int *month, int *day, int *hour, int *min, int *sec){
@@ -59,11 +59,36 @@ void get_time(const char *line, int *month, int *day, int *hour, int *min, int *
 	}
 }	
 
+void sort(link head, link tail){	//使用选择排序法，快速排序需要直到长度、下标，较麻烦
+	link p = head->next;
+	link q;
+	int month_p, day_p, hour_p, min_p, sec_p;
+	int month_q, day_q, hour_q, min_q, sec_q;
+	while(tail != (q=p->next)){
+		while(q != tail){
+			get_time(p->line, &month_p, &day_p, &hour_p, &min_p, &sec_p);
+			get_time(q->line, &month_q, &day_q, &hour_q, &min_q, &sec_q);
+			if (hour_p > hour_q || \
+				hour_p == hour_q && min_p > min_q || \
+				hour_p == hour_q && min_p == min_q && sec_p > sec_q)
+				swap(&p, &q);
+			else if (hour_p == hour_q && min_p == min_q && sec_p == sec_q && month_p > month_q || \
+					hour_p == hour_q && min_p == min_q && sec_p == sec_q && month_p == month_q && day_p > day_q)
+				swap(&p, &q);
+			q = q->next;
+		}
+		p = p->next;
+	}
+	
+}
 int main(void){
 	int month, day, hour, min, sec;
-	link HEAD = log2link()->pre;
-	get_time("11	Thu Jun 11 19:37:28 2020",&month, &day, &hour, &min, &sec);
-	printf("%d %d %d %d %d\n", month, day, hour, min, sec);
+	log2link();
+	link HEAD = getHead(), TAIL = getTail();
+//	get_time("11	Thu Jun 11 19:37:28 2020",&month, &day, &hour, &min, &sec);
+//	printf("%d %d %d %d %d\n", month, day, hour, min, sec);
+	sort(HEAD, TAIL);
+	travel(show_item);
 	return 0;
 }
 
