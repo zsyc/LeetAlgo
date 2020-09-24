@@ -1,41 +1,33 @@
+/* sort_merge.c */
+/* 归并排序 */
 #include <stdio.h>
-#define LEN 8
-int a[LEN]={5,2,4,7,1,3,2,6};
-void merge(int start, int mid, int end){
-	int n1 = mid - start + 1;
-	int n2 = end - mid;
-	int left[n1],right[n2];
-	int i,j,k;
-	for (i=0;i<n1;++i) // left holds a[start..mid]
-		left[i] = a[start+i];
-	for (j=0;j<n2;++j) // right holdes a[mid+1..end]
-		right[j] = a[mid+1+j];
-	i = j = 0;
-	k = start;
-	while (i<n1 && j<n2)
-		if (left[i] < right[j])
-			a[k++] = left[i++];
-		else
-			a[k++] = right[j++];
 
-	while (i<n1) // left[] is not exhausted
-		a[k++] = left[i++];
-	while (j<n2) // right[] is not exhausted
-		a[k++] = right[j++];
-}
-void sort(int start, int end){
-	int mid;
-	if (start<end){
-		mid = (start + end) / 2;
-		printf("sort (%d-%d, %d-%d) %d %d %d %d %d %d %d %d\n", start, mid, mid+1, end, a[0],a[1],a[2],a[3],a[4],a[5],a[6],a[7]);
-		sort(start,mid);
-		sort(mid+1,end);
-		merge(start,mid,end);
-		printf("sort (%d-%d, %d-%d) %d %d %d %d %d %d %d %d\n", start, mid, mid+1, end, a[0],a[1],a[2],a[3],a[4],a[5],a[6],a[7]);
+void merge_origin(int a[], int lo, int mid, int hi){
+	int i = lo, j = mid+1;	//对半分后，左边序列从lo到mid,右边从mid+1到hi
+	int aux[10];
+	for (int k = lo; k <= hi; ++k)
+		aux[k] = a[k];
+	for (int k = lo; k <= hi; ++k){
+		if (i > mid)				a[k] = aux[j++];//左边索引超过中线，则把右侧剩余元素全部复制
+		else if (j > hi)			a[k] = aux[i++];//同上
+		else if (aux[j] < aux[i]) 	a[k] = aux[j++];
+		else						a[k] = aux[i++];
 	}
 }
 
+void sort(int a[], int lo, int hi){
+	if (lo<hi){
+		int mid = lo + (hi-lo)/2;
+		sort(a, lo, mid);
+		sort(a, mid+1, hi);
+		merge_origin(a,lo,mid,hi);
+	}
+}
 int main(void){
-	sort(0,LEN-1);
+	int a[10] = {3,4,6,78,11,2,6,54,0,32};
+	sort(a,0,9);
+	for (int i=0;i<10;++i)
+		printf("%d ",a[i]);
+	putchar('\n');
 	return 0;
 }
