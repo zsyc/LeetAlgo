@@ -30,7 +30,9 @@ int partition (int start, int end){
 
 /* 另一种写法
  * 还是双索引，i索引始终指向小于key的数要放的位置，j索引则从左往右扫描，
- * 碰到小于key的数字，则移动到i的位置*/
+ * 碰到小于key的数字，则移动到i的位置
+ * 随机性对平均算法时间很重要，因而key的值可以首先随机选出，然后与最后一个数值对掉 
+ * 上方写法同理 */
 
 int partition2(int lo, int hi){
 	int key = b[hi], i = lo-1, j = lo, tmp;
