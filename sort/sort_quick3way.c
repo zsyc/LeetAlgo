@@ -1,7 +1,9 @@
 #include <stdio.h>
 /* 荷兰国旗，或者说快速排序的变化
  * 三索引i j k，k为数值索引，i j分别从左往右与从右往左移动，代表的是
- * i左边的数值都小于key，j右边的都大于key，i j之间的等于key */
+ * i左边的数值都小于key，j右边的都大于key，i j之间的等于key 
+ * 这种算法在数列有重复数值的时候更为高效
+ * 同样，建议key使用随机找出来，然后可以一开始与本例中的arr[hi]对调一下，剩下相同*/
 void sort3way(int arr[], int lo, int hi){
 	if (hi<=lo) return;		//递归中止条件
 	int key = arr[hi], tmp;
@@ -19,7 +21,7 @@ void sort3way(int arr[], int lo, int hi){
 		}
 		else ++k;	//当索引k位置的数值等于key的时候，它应该位于i 与j之间，因此位置不变，直接向前移动
 	}
-	sort3way(arr, lo, i);
+	sort3way(arr, lo, i-1);
 	sort3way(arr, j+1, hi);
 }
 
