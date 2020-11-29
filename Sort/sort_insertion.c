@@ -6,7 +6,7 @@ int b[LEN] = {10,122,2,4,7,321,54,3,2,54,56,45,6,543,8,9,0,2,32,32,4,6,546,546,5
 void sort_insert(int a[], int len){
 	int tmp, N=0;
 	for (int i = 1; i < len; ++i)
-		for (int j = i; j >= 0 && a[j] < a[j-1]; --j){
+		for (int j = i; j > 0 && a[j] < a[j-1]; --j){	//这里j不能=0,否则a[j-1]将会越界
 			tmp = a[j];
 			a[j] = a[j-1];
 			a[j-1] = tmp;
